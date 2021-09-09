@@ -1,0 +1,17 @@
+<div class="dropdown">
+  <ng-container *ngIf="filtrable">
+    <input type="text" class="form-control " placeholder="{{placeHolderDyn}}" 
+        [(ngModel)]="filter" data-bs-toggle="dropdown" aria-expanded="false"
+        aria-label="Username" aria-describedby="basic-addon1" (keyup)="filterFunction()">
+  </ng-container>
+  <ng-container *ngIf="!filtrable">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> 
+      {{placeHolderDyn}}
+   </button>
+   <span class="ms-3" >{{selectedValue}}</span>
+  </ng-container>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li *ngIf="valuesAux.length < 1" ><a class="dropdown-item">Sin resultados</a></li>
+      <li *ngFor="let val of valuesAux" (click)="selectValue(val)"><a class="dropdown-item">{{val.value}}</a></li>
+    </ul>
+  </div>

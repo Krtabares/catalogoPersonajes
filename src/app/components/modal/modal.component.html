@@ -1,0 +1,74 @@
+<div class="modal fade" id="modalSolicitud" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Nueva Solicitud</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeBtn></button>
+        </div>
+        <div class="modal-body">
+            <form class="needs-validation"  [formGroup]="studentForm" (ngSubmit)="submit()">
+              <div class="row g-3">
+                <div class="col-sm-12">
+                  <label for="firstName" class="form-label">Nombre completo</label>
+                  <input type="text" class="form-control" id="firstName" 
+                  [(ngModel)]="student.name" formControlName="name"
+                  [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                  minlength="4" placeholder="" value="" required>
+                  <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">name is required</div>
+                    <div *ngIf="f.name.errors.minlength">
+                      name must be at least 4 characters
+                    </div>
+         
+                  </div>
+                </div>
+    
+                <div class="col-sm-12">
+                  <label for="patronus" class="form-label">Patronus</label>
+                  <input type="text" class="form-control" id="patronus" 
+                  [(ngModel)]="student.patronus" formControlName="patronus"
+                  [ngClass]="{ 'is-invalid': submitted && f.patronus.errors }"
+                  placeholder="" value="" required>
+                  <div *ngIf="submitted && f.patronus.errors" class="invalid-feedback">
+                    <div *ngIf="f.patronus.errors.required">patronus is required</div>
+         
+                  </div>
+                </div>
+    
+                <div class="col-12">
+                  <label for="fecha" class="form-label">Fecha de nacimiento</label>
+                  <div class="input-group has-validation">
+                    <input type="date" class="form-control" id="fecha"
+                    [(ngModel)]="student.dateOfBirth"  formControlName="dateOfBirth"
+                    [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth.errors }"
+                     placeholder="01-01-1991" required>
+                     <div *ngIf="submitted && f.dateOfBirth.errors" class="invalid-feedback">
+                        <div *ngIf="f.dateOfBirth.errors.required">date Of Birth is required</div>
+             
+                      </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                    <label for="username" class="form-label">imagen</label>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="inputGroupFile03"
+                        [(ngModel)]="student.image" formControlName="image" (change)="getBase64($event)"
+                         aria-describedby="inputGroupFileAddon03" aria-label="Upload">
+                      </div>
+                </div>
+                <div class="col-12" *ngIf="image">
+                    <img [src]="image" class="rounded mx-auto d-block" alt="..."  style="    width: 100px;">
+                </div>
+
+
+              </div>
+    
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="onReset()" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" (click)="submit()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

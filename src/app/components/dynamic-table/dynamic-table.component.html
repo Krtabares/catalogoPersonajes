@@ -1,0 +1,49 @@
+<div class="row mt-3">
+    <app-dynamic-select class="col-md-6" [dynValues]="columnOrder" [placeHolderDyn]="'Filtre por columna'" [filtrable]="false" (selectedOpt)="selectedColumn=$event" ></app-dynamic-select>
+    <div class="col-md-6">
+        <input *ngIf="filter!='' || selectedColumn !=''" type="text" class="form-control " placeholder="filtrar" 
+        [(ngModel)]="filter" 
+        aria-label="Username" (keyup)="filterFunction()">
+    </div>
+
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead >
+        <tr>
+          <ng-container *ngFor="let column of headers">
+            <th class="text-center "
+              (click)="orderBy(column)" style=" cursor: pointer; ">
+              <div class="d-flex justify-content-center">
+                {{ column }}
+                &nbsp;
+                <!-- <mat-icon [class]="column.icon"></mat-icon> -->
+              </div>
+            </th>
+          </ng-container>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <span *ngIf="registres.length < 1">Sin resultados</span>
+        <ng-container *ngFor="let row of valuesAux; let i = index">
+            <tr>
+                <ng-container *ngFor="let column of headers ">
+                    <td>
+
+                      <ng-container *ngIf="column =='image' &&  getValue(row, column)" >
+                        <img src="{{ getValue(row, column) }}" class="img-thumbnail" alt="..." style="    width: 100px;">
+                      </ng-container>
+                      <ng-container *ngIf="column !='image'" ><p>{{ getValue(row, column) }}</p></ng-container>
+                        
+                    </td>
+                   
+                </ng-container>
+                
+            </tr>
+        </ng-container>    
+
+      </tbody>
+    </table>
+</div>
